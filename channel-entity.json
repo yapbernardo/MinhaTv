@@ -1,0 +1,87 @@
+[
+    {
+        "value": "discoverychannel",
+        "synonyms": [
+            "Discovery Channel",
+            "Discovery"
+        ]
+    },
+    {
+        "value": "globo",
+        "synonyms": [
+            "Globo",
+            "Tv Globo"
+        ]
+    },
+    {
+        "value": "hbo",
+        "synonyms": [
+            "hbo"
+        ]
+    },
+    {
+        "value": "animalplanet",
+        "synonyms": [
+            "animalplanet",
+            "Animal Planet"
+        ]
+    },
+    {
+        "value": "espn",
+        "synonyms": [
+            "espn"
+        ]
+    },
+    {
+        "value": "record",
+        "synonyms": [
+            "record",
+            "RecordTv",
+            "Record tv"
+        ]
+    },
+    {
+        "value": "sportv",
+        "synonyms": [
+            "Sportv",
+            "Sport tv",
+            "Esporte Tv"
+        ]
+    },
+    {
+        "value": "fox",
+        "synonyms": [
+            "fox"
+        ]
+    },
+    {
+        "value": "historychannel",
+        "synonyms": [
+            "historychannel",
+            "History Channel",
+            "History"
+        ]
+    },
+    {
+        "value": "foxsports",
+        "synonyms": [
+            "foxsports",
+            "Fox sports",
+            "Fox esporte"
+        ]
+    },
+    {
+        "value": "disneychannel",
+        "synonyms": [
+            "disneychannel",
+            "Disney",
+            "Disney Channel"
+        ]
+    },
+    {
+        "value": "sbt",
+        "synonyms": [
+            "sbt"
+        ]
+    }
+]
