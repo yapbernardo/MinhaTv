@@ -11,7 +11,7 @@ const welcome = (conv) => {
         };
         conv.ask(new Permission(options));
     } else {
-        conv.ask(`Oi de novo ${name.display}! Em que posso te ajudar?`);
+        conv.ask(`Oi de novo ${name.givenName}! Em que posso te ajudar?`);
     }
 };
 
@@ -21,7 +21,7 @@ const handlePermission = (conv, params, permissionGranted) => {
     } else {
         const { requestedPermission } = conv.data;
         if (requestedPermission === 'NAME') {
-            conv.user.storage.userName = conv.user.name.display;
+            conv.user.storage.userName = conv.user.name.givenName;
             conv.ask(`Valeu, ${conv.user.storage.userName}. Em que posso te ajudar?`);
         }
     }
