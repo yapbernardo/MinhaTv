@@ -33,6 +33,7 @@ const changeChannel = async (conv, { channel }) => {
     if (!channelDoc.exists) {
         conv.close('Eu nao conheco esse ai nao..');
     } else {
+        repository.updateLive(channelDoc);
         conv.close(`Mudando para ${channel}`)
     }
 };
