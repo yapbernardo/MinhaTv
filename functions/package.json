@@ -1,6 +1,9 @@
 {
   "name": "functions",
   "description": "Minha TV project that connects dialogflow to firebase firestore",
+  "engines": {
+    "node": "8"
+  },
   "scripts": {
     "lint": "eslint .",
     "serve": "firebase serve --only functions",
