@@ -28,11 +28,11 @@ const findChannel = (channel) => {
 }
 
 const updateLive = (doc) => {
-    const data = { path: db.doc(`channel/${doc.id}`) }
+    const data = doc.data();
     return new Promise((resolve, reject) => {
-        liveTable.doc('channel').set(data)
+        liveTable.doc('channel').update('url', data.url)
             .then(ref => {
-                console.log('Added doc with ID: ', ref.id)
+                console.log('Updated the url!')
                 resolve(ref)
             })
             .catch((err) => {
