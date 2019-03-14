@@ -1,45 +1,33 @@
-'use strict';
-
 const { Permission } = require('actions-on-google');
-const repository = require('../repositories/repository-channel');
 
-const welcome = (conv) => {
-    const name = conv.user.storage.userName;
-    if (!name) {
-        const options = {
-            context: 'Oie você! Para te conhecer melhor :)',
-            permissions: 'NAME'
-        };
-        conv.ask(new Permission(options));
-    } else {
-        conv.ask(`Oi de novo ${name.givenName}! Em que posso te ajudar?`);
-    }
-};
+const askNamePermission = () => {
+    const options = {
+        context: 'Oie você! Para te conhecer melhor :)',
+        permissions: 'NAME'
+    };
+    return new Permission(options);
+}
 
-const handlePermission = (conv, _params, permissionGranted) => {
-    if (!permissionGranted) {
-        conv.ask('Sem problemas. Em que posso te ajudar?');
-    } else {
-        const { requestedPermission } = conv.data;
-        if (requestedPermission === 'NAME') {
-            conv.user.storage.userName = conv.user.name.givenName;
-            conv.ask(`Valeu, ${conv.user.storage.userName}. Em que posso te ajudar?`);
-        }
-    }
-};
+const greetByName = (name) => {
+    const greetings = [
+        `<speak>
+            <prosody rate="${ssmlRate}" pitch="medium">
+                Oi de novo ${name}! Em que posso te ajudar?
+            </prosody>
+        </speak>`,
+        `<speak>
+            <prosody rate="${ssmlRate}" pitch="medium">
+                Eae, como posso te ajudar ${name}?
+            </prosody>
+        </speak>`
+    ];
+    return getSingleRandom(greetings);
+}
 
-const changeChannel = async (conv, { channel }) => {
-    let channelDoc = await repository.findChannel(channel);
-    if (!channelDoc.exists) {
-        conv.close('Eu nao conheco esse ai nao..');
-    } else {
-        repository.updateLive(channelDoc);
-        conv.close(`Mudando para ${channel}`)
-    }
-};
+getSingleRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
+// -------------------- Module Exports -------------------------//
 module.exports = {
-    'welcome': welcome,
-    'handlePermission': handlePermission,
-    'changeChannel': changeChannel
+    'askNamePermission': askNamePermission,
+    'greetByName': greetByName
 };

@@ -1,12 +1,12 @@
 'use strict';
 
 const { dialogflow } = require('actions-on-google');
-const responses = require('./responses')
+const intent = require('./intents')
 
 const app = dialogflow({ debug: true });
 
-app.intent('Default Welcome Intent', responses.welcome);
-app.intent('handle.permission', responses.handlePermission);
-app.intent('change.channel', responses.changeChannel);
+app.intent('Default Welcome Intent', intent.welcome);
+app.intent('handle.permission', intent.handlePermission);
+app.intent('change.channel', intent.changeChannel);
 
 module.exports = app;

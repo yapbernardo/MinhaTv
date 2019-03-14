@@ -17,11 +17,11 @@ const findChannel = (channel) => {
     return new Promise((resolve, reject) => {
         channelsTable.doc(channel).get()
             .then((doc) => {
-                console.log('Finded channel ', doc)
+                console.log('Finded channel ', doc.data().name)
                 resolve(doc);
             })
             .catch((err) => {
-                console.log(err);
+                console.log('Error when trying to find the channel ', err);
                 reject(`Error ${err}`)
             });
     });
@@ -32,11 +32,11 @@ const updateLive = (doc) => {
     return new Promise((resolve, reject) => {
         liveTable.doc('channel').update('url', data.url)
             .then(ref => {
-                console.log('Updated the url!')
+                console.log('Updated the url: ', data.url)
                 resolve(ref)
             })
             .catch((err) => {
-                console.error('Could\'t add doc')
+                console.error('Could\'t update url')
                 reject(`${err}`)
             });
     });
