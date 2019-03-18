@@ -42,7 +42,7 @@ const updateLive = (doc) => {
             })
             .catch((err) => {
                 console.error('Could\'t update url')
-                reject(`${err}`)
+                reject(err)
             });
     });
 }
