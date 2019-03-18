@@ -17,12 +17,17 @@ const findChannel = (channel) => {
     return new Promise((resolve, reject) => {
         channelsTable.doc(channel).get()
             .then((doc) => {
-                console.log('Finded channel ', doc.data().name)
-                resolve(doc);
+                if (doc && doc.exists) {
+                    console.log('Finded channel ', doc.data().name)
+                    return resolve(doc);
+                }
+                console.log(`Can\'t find channel : ${channel}`);
+                return reject({ isNotFound: true });
+
             })
             .catch((err) => {
                 console.log('Error when trying to find the channel ', err);
-                reject(`Error ${err}`)
+                reject(err);
             });
     });
 }

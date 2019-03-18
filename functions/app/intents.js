@@ -7,32 +7,37 @@ const response = require('../app/responses');
 const welcome = (conv) => {
     const name = conv.user.storage.userName;
     if (!name) {
-        conv.ask(response.askNamePermission);
+        conv.ask(response.askNamePermission());
     } else {
-        conv.ask(`Oi de novo ${name.givenName}! Em que posso te ajudar?`);
+        conv.ask(response.greetByName(name.givenName));
     }
 };
 
 const handlePermission = (conv, _params, permissionGranted) => {
     if (!permissionGranted) {
-        conv.ask('Sem problemas. Em que posso te ajudar?');
+        conv.ask(response.permissionDenied());
     } else {
         const { requestedPermission } = conv.data;
         if (requestedPermission === 'NAME') {
             conv.user.storage.userName = conv.user.name.givenName;
-            conv.ask(`Valeu, ${conv.user.storage.userName}. Em que posso te ajudar?`);
+            conv.ask(response.permissionGranted(conv.user.storage.userName));
         }
     }
 };
 
 const changeChannel = async (conv, { channel }) => {
-    let channelDoc = await repository.findChannel(channel);
-    if (!channelDoc.exists) {
-        conv.close('Eu nao conheço esse ai nao..');
-    } else {
+    try {
+        let channelDoc = await repository.findChannel(channel);
         repository.updateLive(channelDoc);
-        conv.close(`Esse canal eu conheço!`)
-        conv.ask(`Mudando para ${channel}`)
+        conv.close(response.knownChannel());
+        conv.ask(response.changingToChannel(channelDoc.data().name));
+    } catch (error) {
+        if (error.isNotFound) {
+            conv.close(response.channelNotFound());
+            return conv.ask(response.askFindAnotherChannel());
+        }
+        return conv.close(response.defaultError());
+
     }
 };
 
